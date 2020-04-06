@@ -1,0 +1,138 @@
+Welcome to the game of Blackjack!
+
+dealer: XX  10D  
+player: 5H  9H  (value = 14)
+
+Want another hit (y/n)?
+y
+dealer: XX  10D  
+player: 5H  9H  8S  (value = 22)
+
+dealer: 3S  10D  (value = 13)
+player: 5H  9H  8S  (value = 22)
+
+dealer: 3S  10D  2S  (value = 15)
+player: 5H  9H  8S  (value = 22)
+
+dealer: 3S  10D  2S  3H  (value = 18)
+player: 5H  9H  8S  (value = 22)
+
+You lose!
+play another hand (y/n)? y
+dealer: XX  8D  
+player: JC  9S  (value = 19)
+
+Want another hit (y/n)?
+n
+dealer: 5D  8D  (value = 13)
+player: JC  9S  (value = 19)
+
+dealer: 5D  8D  QH  (value = 23)
+player: JC  9S  (value = 19)
+
+You win!
+play another hand (y/n)? y
+dealer: XX  3C  
+player: 7S  9D  (value = 16)
+
+Want another hit (y/n)?
+y
+dealer: XX  3C  
+player: 7S  9D  AC  (value = 17)
+
+Want another hit (y/n)?
+y
+dealer: XX  3C  
+player: 7S  9D  AC  KH  (value = 27)
+
+dealer: 9C  3C  (value = 12)
+player: 7S  9D  AC  KH  (value = 27)
+
+dealer: 9C  3C  10C  (value = 22)
+player: 7S  9D  AC  KH  (value = 27)
+
+You lose!
+play another hand (y/n)? y
+dealer: XX  8H  
+player: KD  7D  (value = 17)
+
+Want another hit (y/n)?
+n
+dealer: AS  8H  (value = 19)
+player: KD  7D  (value = 17)
+
+You lose!
+play another hand (y/n)? y
+dealer: XX  4S  
+player: QD  2D  (value = 12)
+
+Want another hit (y/n)?
+y
+dealer: XX  4S  
+player: QD  2D  KC  (value = 22)
+
+dealer: JS  4S  (value = 14)
+player: QD  2D  KC  (value = 22)
+
+dealer: JS  4S  10S  (value = 24)
+player: QD  2D  KC  (value = 22)
+
+You lose!
+play another hand (y/n)? y
+dealer: XX  6C  
+player: 7H  JH  (value = 17)
+
+Want another hit (y/n)?
+y
+dealer: XX  6C  
+player: 7H  JH  5S  (value = 22)
+
+dealer: QS  6C  (value = 16)
+player: 7H  JH  5S  (value = 22)
+
+dealer: QS  6C  4C  (value = 20)
+player: 7H  JH  5S  (value = 22)
+
+You lose!
+play another hand (y/n)? y
+dealer: XX  AH  
+player: 2C  6S  (value = 8)
+
+Want another hit (y/n)?
+y
+dealer: XX  AH  
+player: 2C  6S  3D  (value = 11)
+
+Want another hit (y/n)?
+y
+dealer: XX  AH  
+player: 2C  6S  3D  JD  (value = 21)
+
+dealer: KS  AH  (value = 21)
+player: 2C  6S  3D  JD  (value = 21)
+Push!
+play another hand (y/n)? y
+dealer: XX  AS  
+player: 4S  6H  (value = 10)
+
+Want another hit (y/n)?
+y
+dealer: XX  AS  
+player: 4S  6H  9H  (value = 19)
+
+Want another hit (y/n)?
+n
+dealer: 5C  AS  (value = 16)
+player: 4S  6H  9H  (value = 19)
+
+dealer: 5C  AS  9C  (value = 15)
+player: 4S  6H  9H  (value = 19)
+
+dealer: 5C  AS  9C  AH (value = 16)
+player: 4S  6H  9H  (value = 19)
+
+dealer: 5C  AS  9C  AH  4D (value = 20)
+player: 4S  6H  9H  (value = 19)
+
+You lose!
+play another hand (y/n)? n
