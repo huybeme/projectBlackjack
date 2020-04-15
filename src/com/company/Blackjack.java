@@ -156,9 +156,18 @@ public class Blackjack {
             System.out.println("You Bust!");
             // prompts if dealer also has blackjack but dealer will prompt winning either way
             if (dealerHand.getBlackjack()) {
-                System.out.println("Dealer has blackjack!");
+                System.out.println("Dealer wins with blackjack!");
             }
-            System.out.println("Dealer wins!");
+
+            // if dealer also bust there is no winner.
+            else if (dealerScore > 21) {
+                System.out.println("Dealer also Bust!");
+                System.out.println("There is no winner.");
+            }
+            else {
+                System.out.println("Dealer wins!");
+            }
+
         }
         // Here is how we handle if we get equal values for each player
         else if (playerScore == dealerScore) {
@@ -185,11 +194,6 @@ public class Blackjack {
                 System.out.println("Dealer bust!");
             }
             System.out.println("You win!");
-        }
-        // if both player and dealer bust then there is no winner. it is a draw.
-        else if (playerScore > 21 && dealerScore > 21) {
-            System.out.println("Both Dealer and Player bust!");
-            System.out.println("No winner.");
         }
         //      if dealer is higher than player, dealer wins
         else if (playerScore < dealerScore) {
