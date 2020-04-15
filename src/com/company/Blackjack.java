@@ -85,8 +85,8 @@ public class Blackjack {
         // the two lines below is the original code before task 2
 //        Hand playerHand = new Hand(20);
 //        Hand dealerHand = new Hand(20);
-        BlackjackHand playerHand = new BlackjackHand(20);
-        BlackjackDealerHand dealerHand = new BlackjackDealerHand(20);
+        BlackjackHand playerHand = new BlackjackHand();
+        BlackjackDealerHand dealerHand = new BlackjackDealerHand();
 
         // Deal the initial cards: two to the player, and two to the dealer.
         dealCard(deck, playerHand);
@@ -185,6 +185,11 @@ public class Blackjack {
                 System.out.println("Dealer bust!");
             }
             System.out.println("You win!");
+        }
+        // if both player and dealer bust then there is no winner. it is a draw.
+        else if (playerScore > 21 && dealerScore > 21) {
+            System.out.println("Both Dealer and Player bust!");
+            System.out.println("No winner.");
         }
         //      if dealer is higher than player, dealer wins
         else if (playerScore < dealerScore) {

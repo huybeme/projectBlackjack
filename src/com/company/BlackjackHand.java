@@ -3,8 +3,8 @@ package com.company;
 public class BlackjackHand extends Hand {
     public boolean blackjack;
 
-    public BlackjackHand(int maxCards) {
-        super(maxCards);    // inherit maxCards from superclass
+    public BlackjackHand() {
+        super(20);    // inherit maxCards from superclass
     }
 
     // this will only be true when the setBlackjack method is called by client code

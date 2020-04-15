@@ -5,8 +5,8 @@ public class BlackjackDealerHand extends Hand {
     private int dealerIteration = 1;     // 1 = not dealer turn; 0 = dealer turn - used to handle to where to start
                                     // iteration of for loop for toString and getValue methods
 
-    public BlackjackDealerHand(int maxCards) {
-        super(maxCards);
+    public BlackjackDealerHand() {
+        super(20);
     }
 
     // getter for isDealerTurn - may not be necessary for this project but created

@@ -1,4 +1,5 @@
 package com.company;
+import java.util.*;
 
 public class Scratch {
 
@@ -13,14 +14,15 @@ public class Scratch {
         Card c8 = new Card(6, 1);
         Card c9 = new Card(5, 1);
 
-        Hand player = new BlackjackHand(20);
-        Hand player2 = new BlackjackHand( 20);
-        Hand player3 = new BlackjackHand(20);
-        Hand player4 = new BlackjackHand(20);
-        Hand player5 = new BlackjackHand(20);
-        Hand player6 = new BlackjackHand(20);
-        Hand player7 = new BlackjackHand(20);
-        BlackjackDealerHand dealer = new BlackjackDealerHand(20);
+        Hand player = new BlackjackHand();
+        Hand player2 = new BlackjackHand();
+        Hand player3 = new BlackjackHand();
+        Hand player4 = new BlackjackHand();
+        Hand player5 = new BlackjackHand();
+        Hand player6 = new BlackjackHand();
+        BlackjackHand player7 = new BlackjackHand();
+        BlackjackDealerHand dealer = new BlackjackDealerHand();
+        BlackjackHand player8 = new BlackjackHand();
 
         // value = 4 + J
         player.addCard(c1);
@@ -69,23 +71,116 @@ public class Scratch {
         System.out.println();
 
         dealer.addCard(c3);
-        dealer.addCard(c8);
+//        dealer.addCard(c8);
         dealer.addCard(c5);
-        dealer.setDealerTurn(false);
+//        dealer.addCard(c5);
+        //dealer.setDealerTurn(false);  // should be false by default
         System.out.println("dealer: " + dealer + "(" + dealer.getDealerTurn() + ")");
         dealer.setDealerTurn(true);
         System.out.println("dealer: " + dealer + "(" + dealer.getDealerTurn() + ")");
         System.out.println();
 
+
         player7.addCard(c2);
         player7.addCard(c3);
-        System.out.println(player7);
-//        System.out.println(player7.getBlackjack());
+//        player7.addCard(c9);
+        System.out.println("player 7: " + player7);
+        System.out.println(player7.getBlackjack());
 //        player7.setBlackjack();
-//        System.out.println(player7.getBlackjack());
+        System.out.println(player7.getBlackjack());
+        System.out.println();
 
 
+
+
+        System.out.println("Welcome to the game of Blackjack!");
+        System.out.println();
+        Scanner console = new Scanner(System.in);
+
+        System.out.println(dealer.getBlackjack());
+        System.out.println(player7.getBlackjack());
+
+
+        // Next it's the dealer's turn.
+        // if player has blackjack, dealer will not continue to play
+        if (player7.getBlackjack()) {
+            dealer.setDealerTurn(false);
+        }
+        else {dealer.setDealerTurn(true);}    // You will need to uncomment this command when you have written
+        // the method setDealerTurn in the appropriate class.
+        displayHands(dealer, player7); // The dealer reveals her hidden card.
+
+
+        // Print the outcome of the hand of blackjack.
+        printResult(player7, dealer);
     }
+
+    /* The printResult method
+     * Modify this method to print the outcome of the hand of blackjack.
+     */
+
+    private static void printResult(BlackjackHand playerHand, BlackjackDealerHand dealerHand) {
+        int playerScore = playerHand.getValue();
+        int dealerScore = dealerHand.getValue();
+        boolean blackjackPlayer = playerHand.getBlackjack();
+
+        // if you draw greater than 21, you bust (lose)
+        if (playerScore > 21) {
+            System.out.println("You Bust!");
+            // prompts if dealer also has blackjack but dealer will prompt winning either way
+            if (dealerHand.getBlackjack()) {
+                System.out.println("Dealer has blackjack!");
+            }
+            System.out.println("Dealer wins!");
+        }
+        // Here is how we handle if we get equal values for each player
+        else if (playerScore == dealerScore) {
+            // if both player and dealer has blackjack, then its a push.
+            if (dealerHand.getBlackjack() && playerHand.getBlackjack()) {
+                System.out.println("Both player and dealer have blackjack!");
+                System.out.println("Push! It's a draw!");
+            }
+            // if player has 21 and not by a blackjack but dealer has blackjack, dealer wins
+            else if (dealerHand.getBlackjack() && playerHand.getValue() == 21 && playerHand.getNumCards() > 2) {
+                System.out.println("Dealer has blackjack!");
+                System.out.println("Dealer wins!");
+            }
+            // if its just a outright tie, it's a draw.
+            else {
+                System.out.println("Push! It's a draw!");
+            }
+        }
+        // Here we begin to determine if player wins or the dealer wins and its not a draw
+        //      if player is higher than dealer without going over 21, player wins
+        else if (playerScore > dealerScore || dealerScore > 21) {
+            if (dealerScore > 21) {
+                System.out.println("Dealer bust!");
+            }
+            System.out.println("You win!");
+        }
+        //      if dealer is higher than player, dealer wins
+        else if (playerScore < dealerScore) {
+            if (dealerHand.getBlackjack()) {
+                System.out.println("Dealer has blackjack!");
+            }
+            System.out.println("Dealer wins.");
+        }
+        System.out.println();
+
+        //System.out.println("You win or lose!");
+    }
+
+    /* The displayHands method prints the contents of each player's hand and the corresponding
+     *  value.  Note java automatically calls the toString method on a Hand object.
+     */
+    private static void displayHands(Hand dealerHand, Hand playerHand) {
+        System.out.println("dealer: " + dealerHand);
+        System.out.println("player: " + playerHand);
+        System.out.println();
+    }
+
+
+
 
     // my code
     public static boolean pairAce(Hand h) {
