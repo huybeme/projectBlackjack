@@ -1,3 +1,14 @@
+/**
+ * Project Blackjack
+ *
+ * Preliminary code of project supplied by Dr. Gross
+ * Project completed by Huy Le [hle@student.bridgew.edu]
+ *      before or on due date: 04/15/20
+ *
+ * refer to the bottom of the code for the Academic Honesty Statement
+ *
+ */
+
 package com.company;
 
 /*
@@ -74,16 +85,15 @@ public class Blackjack {
         // the two lines below is the original code before task 2
 //        Hand playerHand = new Hand(20);
 //        Hand dealerHand = new Hand(20);
-        Hand playerHand = new BlackjackHand(20);
-//        Hand dealerHand = new BlackjackDealerHand(20);
+        BlackjackHand playerHand = new BlackjackHand(20);
         BlackjackDealerHand dealerHand = new BlackjackDealerHand(20);
-        // per Dr.G, we should not change the hand header but cannot get it to work if i don't at this time.******************************
 
         // Deal the initial cards: two to the player, and two to the dealer.
         dealCard(deck, playerHand);
         dealCard(deck, dealerHand);
         dealCard(deck, playerHand);
         dealCard(deck, dealerHand);
+
         // Display the player's hand and one of the dealer's two cards.
         displayHands(dealerHand, playerHand);
 
@@ -91,8 +101,8 @@ public class Blackjack {
          * then set the relevant field of BlackjackHand to show hand outcome is "Blackjack!"
          */
         if (playerHand.getValue() == 21 && !(dealerHand.getValue() == 21)) {
-            // playerHand.setBlackjack();  // You will need to uncomment this command when you have written************************* need this working
-                // the method setBlackjack in the appropriate class.
+            playerHand.setBlackjack();  // You will need to uncomment this command when you have written
+                                        // the method setBlackjack in the appropriate class.
         }
 
         /* While the player's hand value remains < 21, he or she has the option to keep
@@ -104,17 +114,30 @@ public class Blackjack {
         }
 
         // Next it's the dealer's turn.
-         dealerHand.setDealerTurn(true); // You will need to uncomment this command when you have written
-            // the method setDealerTurn in the appropriate class.
-        displayHands(dealerHand, playerHand); // The dealer reveals her hidden card.
+        dealerHand.setDealerTurn(true);         // You will need to uncomment this command when you have written
+                                                // the method setDealerTurn in the appropriate class.
+        displayHands(dealerHand, playerHand);   // The dealer reveals her hidden card.
 
-        /* While the dealer's hand value remains < 21, keep checking if the dealer should
-         * take a hit.  If the dealer should take a hit, deal a card, and display the hands.
-         */
-        while (dealerHand.getValue() < 21 && dealer.wantsHit(dealerHand, playerHand)) {
-            dealCard(deck, dealerHand);
-            displayHands(dealerHand, playerHand);
+        // Next it's the dealer's turn.
+        // if player has blackjack, dealer will not draw any more cards, else, dealer continue to play
+        //      dealer should only continue to player if there are other players who does not have blackjack
+        //      this if statement was added to stop dealer from playing if player has blackjack since its just 1 player vs dealer
+        //      I had to add this if statement to the original code provided by Dr. G in order to handle blackjack
+        if (playerHand.getBlackjack()) {
+            System.out.println("You got blackjack!");
         }
+         else {
+            displayHands(dealerHand, playerHand); // The dealer reveals her hidden card.
+
+            /* While the dealer's hand value remains < 21, keep checking if the dealer should
+             * take a hit.  If the dealer should take a hit, deal a card, and display the hands.
+             */
+            while (dealerHand.getValue() < 21 && dealer.wantsHit(dealerHand, playerHand)) {
+                dealCard(deck, dealerHand);
+                displayHands(dealerHand, playerHand);
+            }
+
+         }
 
         // Print the outcome of the hand of blackjack.
         printResult(playerHand, dealerHand);
@@ -124,24 +147,55 @@ public class Blackjack {
      * Modify this method to print the outcome of the hand of blackjack.
      */
 
-    private static void printResult(Hand playerHand, Hand dealerHand) {
+    private static void printResult(BlackjackHand playerHand, BlackjackDealerHand dealerHand) {
         int playerScore = playerHand.getValue();
         int dealerScore = dealerHand.getValue();
 
+        // if you draw greater than 21, you bust (lose)
         if (playerScore > 21) {
-            System.out.println("You Bust! Dealer wins.");
+            System.out.println("You Bust!");
+            // prompts if dealer also has blackjack but dealer will prompt winning either way
+            if (dealerHand.getBlackjack()) {
+                System.out.println("Dealer has blackjack!");
+            }
+            System.out.println("Dealer wins!");
         }
-        if (playerScore == dealerScore && playerScore <= 21) {
-            System.out.println("Push! Its a draw!");
+        // Here is how we handle if we get equal values for each player
+        else if (playerScore == dealerScore) {
+            // if both player and dealer has blackjack, then its a push.
+            if (dealerHand.getBlackjack() && playerHand.getBlackjack()) {
+                System.out.println("Both player and dealer have blackjack!");
+                System.out.println("Push! It's a draw!");
+            }
+            // if player has 21 and not by a blackjack but dealer has blackjack, dealer wins
+            else if (dealerHand.getBlackjack() && playerHand.getValue() == 21 && playerHand.getNumCards() > 2) {
+                System.out.println("Dealer has blackjack!");
+                System.out.println("Dealer wins!");
+            }
+            // if its just a outright tie, it's a draw.
+            else {
+                System.out.println("Push! It's a draw!");
+            }
         }
-        else if (playerScore > dealerScore && playerScore <= 21 || dealerScore > 21) {
+        // Here we begin to determine if player wins or the dealer wins and its not a draw
+        //      if player is higher than dealer without going over 21, player wins
+        //      if player wins with a blackjack, it will prompt somewhere in the playHand method
+        else if (playerScore > dealerScore || dealerScore > 21) {
+            if (dealerScore > 21) {
+                System.out.println("Dealer bust!");
+            }
             System.out.println("You win!");
         }
+        //      if dealer is higher than player, dealer wins
         else if (playerScore < dealerScore) {
+            if (dealerHand.getBlackjack()) {
+                System.out.println("Dealer has blackjack!");
+            }
             System.out.println("Dealer wins.");
         }
         System.out.println();
 
+        // original code commented out
         //System.out.println("You win or lose!");
     }
 
@@ -155,3 +209,35 @@ public class Blackjack {
     }
 
 }
+
+
+
+/*
+Name: Huy Le
+Section number or class time: 004 (1:50pm)
+Signature (written or typed): Huy Le
+Assignment: project Blackjack
+Date: 04/14/20
+
+Academic Honesty Statement
+
+Code. Using the textbook, resources posted on Blackboard and class repositories and my class notes, I did this assignment
+like a take-home programming test. I did my own work entirely.
+
+•	I did not show or share code, pseudo-code, or documentation of any kind.
+•	I did not look at or use code from any other source, including the internet.
+
+Exceptions. The following exceptions apply to code from this assignment:
+•	Exception: I showed my code, pseudo-code, or documentation to the professor when I met with her.
+
+Meaning/Approaches/Strategies. I discussed the meaning of the assignment or general approaches and strategies. Here is
+who/what I consulted and a very specific description of what was discussed/addressed:
+
+NA
+
+Consequences. I understand that violation of the academic honesty policy in the syllabus will result in a failing grade
+for the work. I understand that violation of the academic honesty policy in the syllabus will result in the use of the
+reporting procedure as described at
+http://catalog.bridgew.edu/content.php?catoid=10&navoid=970#academic-integrity-violation-reporting-procedure .¬¬¬
+
+ */

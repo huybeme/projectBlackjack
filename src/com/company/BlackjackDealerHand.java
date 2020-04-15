@@ -5,21 +5,26 @@ public class BlackjackDealerHand extends Hand {
     private int dealerIteration = 1;     // 1 = not dealer turn; 0 = dealer turn - used to handle to where to start
                                     // iteration of for loop for toString and getValue methods
 
-    // do I need to add dealerTurn as an argument?
     public BlackjackDealerHand(int maxCards) {
         super(maxCards);
     }
 
-    // getter for isDealerTurn - may not be necessary for this game but created
-    // to help me check my codes
+    // getter for isDealerTurn - may not be necessary for this project but created
+    //      to help me check my codes
+    //      this should be set to false by default
     public boolean getDealerTurn() {
         return isDealerTurn;
     }
 
     // boolean to set whether dealer turn is true or false
-    //      client code assigns this method as true --> wouldn't
-    public void setDealerTurn(boolean dealerTurn) {
-        isDealerTurn = dealerTurn;
+    //      client code assigns this method as true and to uncomment code when method is complete
+    public void setDealerTurn(boolean isDealerTurn) {
+        this.isDealerTurn = isDealerTurn;
+    }
+
+    // establishes conditions for blackjack for dealer
+    public boolean getBlackjack(){
+        return getNumCards() == 2 && getValue() == 21;
     }
 
     @Override

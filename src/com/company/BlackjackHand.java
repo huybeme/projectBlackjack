@@ -7,6 +7,16 @@ public class BlackjackHand extends Hand {
         super(maxCards);    // inherit maxCards from superclass
     }
 
+    // this will only be true when the setBlackjack method is called by client code
+    public boolean getBlackjack() {
+        return blackjack;
+    }
+
+    // when this method is called in the client code, it will return true otherwise its false by default
+    public void setBlackjack() {
+        blackjack = true;
+    }
+
 
     @Override
     public int getValue() {
